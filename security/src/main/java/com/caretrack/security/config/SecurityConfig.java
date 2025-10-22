@@ -1,6 +1,6 @@
 package com.caretrack.security.config;
 
-import com.caretrack.security.jwt.JwtAuthenticationFilter;
+import com.caretrack.security.web.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

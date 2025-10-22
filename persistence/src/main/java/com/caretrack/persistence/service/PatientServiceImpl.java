@@ -1,9 +1,9 @@
 package com.caretrack.persistence.service;
 
-import com.caretrack.core.domain.dto.PatientDto;
-import com.caretrack.core.domain.entity.Patient;
-import com.caretrack.core.domain.mapper.PatientMapper;
-import com.caretrack.core.service.PatientService;
+import com.caretrack.core.patient.domain.Patient;
+import com.caretrack.core.patient.dto.PatientDto;
+import com.caretrack.core.patient.mapper.PatientMapper;
+import com.caretrack.core.patient.service.PatientService;
 import com.caretrack.persistence.repository.PatientRepository;
 import java.util.List;
 import java.util.Optional;
