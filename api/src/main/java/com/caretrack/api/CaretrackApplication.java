@@ -1,0 +1,12 @@
+package com.caretrack.api;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(scanBasePackages = "com.caretrack")
+public class CaretrackApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(CaretrackApplication.class, args);
+    }
+}
