@@ -1,6 +1,5 @@
 package com.caretrack.api.alert;
 
-import com.caretrack.core.alert.domain.AlertStatus;
 import com.caretrack.core.alert.dto.AlertDto;
 import com.caretrack.core.alert.service.AlertService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +29,7 @@ public class AlertController {
     @GetMapping
     @Operation(summary = "List alerts filtered by status or patient")
     public ResponseEntity<List<AlertDto>> findAlerts(
-            @RequestParam(value = "status", required = false) AlertStatus status,
+            @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "patientId", required = false) Long patientId) {
         return ResponseEntity.ok(alertService.findByFilters(status, patientId));
     }

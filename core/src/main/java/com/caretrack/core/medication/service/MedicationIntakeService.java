@@ -1,6 +1,5 @@
 package com.caretrack.core.medication.service;
 
-import com.caretrack.core.medication.domain.MedicationIntakeStatus;
 import com.caretrack.core.medication.dto.MedicationIntakeDto;
 import java.util.List;
 
@@ -10,5 +9,5 @@ public interface MedicationIntakeService {
 
     List<MedicationIntakeDto> findByFilters(Long patientId, Long planId);
 
-    MedicationIntakeDto updateStatus(Long id, MedicationIntakeStatus status);
+    MedicationIntakeDto updateStatus(Long id, String status);
 }

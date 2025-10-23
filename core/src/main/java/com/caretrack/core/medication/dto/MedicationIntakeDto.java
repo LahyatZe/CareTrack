@@ -1,6 +1,5 @@
 package com.caretrack.core.medication.dto;
 
-import com.caretrack.core.medication.domain.MedicationIntakeStatus;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Value;
@@ -17,5 +16,5 @@ public class MedicationIntakeDto {
     String dosage;
     LocalDateTime scheduledTime;
     LocalDateTime takenAt;
-    MedicationIntakeStatus status;
+    String status;
 }

@@ -1,5 +1,6 @@
 package com.caretrack.persistence.service;
 
+import com.caretrack.core.common.mapper.EnumMapper;
 import com.caretrack.core.medication.domain.MedicationIntake;
 import com.caretrack.core.medication.domain.MedicationIntakeStatus;
 import com.caretrack.core.medication.dto.MedicationIntakeDto;
@@ -26,6 +27,7 @@ public class MedicationIntakeServiceImpl implements MedicationIntakeService {
     private final PatientRepository patientRepository;
     private final TreatmentPlanRepository treatmentPlanRepository;
     private final MedicationIntakeMapper medicationIntakeMapper;
+    private final EnumMapper enumMapper;
 
     @Override
     @Transactional
@@ -60,12 +62,16 @@ public class MedicationIntakeServiceImpl implements MedicationIntakeService {
 
     @Override
     @Transactional
-    public MedicationIntakeDto updateStatus(Long id, MedicationIntakeStatus status) {
+    public MedicationIntakeDto updateStatus(Long id, String status) {
         MedicationIntake intake = medicationIntakeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Medication intake not found: " + id));
-        if (!Objects.equals(intake.getStatus(), status)) {
-            intake.setStatus(status);
-            if (status == MedicationIntakeStatus.TAKEN) {
+        MedicationIntakeStatus targetStatus = enumMapper.toMedicationIntakeStatus(status);
+        if (targetStatus == null) {
+            throw new IllegalArgumentException("Status must be provided for update");
+        }
+        if (!Objects.equals(intake.getStatus(), targetStatus)) {
+            intake.setStatus(targetStatus);
+            if (targetStatus == MedicationIntakeStatus.TAKEN) {
                 intake.setTakenAt(java.time.LocalDateTime.now());
             } else {
                 intake.setTakenAt(null);

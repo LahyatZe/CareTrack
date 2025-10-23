@@ -36,14 +36,14 @@ public class TreatmentPlanServiceImpl implements TreatmentPlanService {
         Patient patient = patientRepository.findById(dto.getPatientId())
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found: " + dto.getPatientId()));
         plan.setPatient(patient);
-        if (dto.getSteps() != null) {
-            dto.getSteps().forEach(stepDto -> {
-                TreatmentStep step = treatmentStepMapper.toEntity(stepDto);
+        if (plan.getSteps() != null && !plan.getSteps().isEmpty()) {
+            int index = 1;
+            for (TreatmentStep step : plan.getSteps()) {
                 if (step.getOrderIndex() == null) {
-                    step.setOrderIndex(plan.getSteps().size() + 1);
+                    step.setOrderIndex(index);
                 }
-                plan.addStep(step);
-            });
+                index++;
+            }
         }
         TreatmentPlan saved = treatmentPlanRepository.save(plan);
         return treatmentPlanMapper.toDto(saved);
