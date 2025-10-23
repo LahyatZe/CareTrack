@@ -1,0 +1,19 @@
+<section class="vitals ct-surface">
+  <h2>Signes vitaux</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Valeur</th>
+        <th>Enregistré le</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vital of vitals$ | async">
+        <td>{{ vital.type }}</td>
+        <td>{{ vital.value }}</td>
+        <td>{{ vital.recordedAt | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

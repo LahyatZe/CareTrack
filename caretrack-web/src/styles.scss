@@ -1,0 +1,24 @@
+@use 'sass:color';
+
+:root {
+  --ct-primary: #0a7ea4;
+  --ct-accent: #2ec4b6;
+  --ct-warn: #ff6b6b;
+  --ct-background: #f5f7fa;
+  --ct-surface: #ffffff;
+  --ct-text: #1f2933;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--ct-background);
+  color: var(--ct-text);
+}
+
+.ct-surface {
+  background: var(--ct-surface);
+  border-radius: 0.75rem;
+  box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.12);
+  padding: 1.5rem;
+}

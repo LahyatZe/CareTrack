@@ -1,0 +1,9 @@
+<section class="plans ct-surface">
+  <h2>Plans de soins</h2>
+  <ul>
+    <li *ngFor="let plan of plans$ | async">
+      <h3>{{ plan.title }}</h3>
+      <p>{{ plan.description }}</p>
+    </li>
+  </ul>
+</section>
