@@ -16,3 +16,8 @@ logging:
   level:
     org.springframework.security: INFO
     org.springframework.web: INFO
+security:
+  jwt:
+    secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXkxMjM0NTY3ODkwMTIzNDU2Nzg5MA==
+    access-token-ttl: PT15M
+    refresh-token-ttl: P7D
