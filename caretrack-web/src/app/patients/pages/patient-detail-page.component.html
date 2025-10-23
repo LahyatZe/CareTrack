@@ -1,0 +1,97 @@
+<section class="patient-detail">
+  <header class="patient-detail__header">
+    <div>
+      <a routerLink="/patients" class="patient-detail__back">← Retour aux patients</a>
+      <h1>{{ patient.fullName }}</h1>
+      <p>{{ patient.age }} ans • {{ patient.gender }} • {{ patient.diagnosis }}</p>
+    </div>
+    <ct-card title="Référent médical" alignHeader="end">
+      <strong>{{ patient.primaryPhysician }}</strong>
+      <span class="patient-detail__tag">Service de cardiologie</span>
+    </ct-card>
+  </header>
+
+  <nav class="patient-detail__tabs" aria-label="Sections patient">
+    <button
+      [class.patient-detail__tab--active]="activeTab === 'plans'"
+      class="patient-detail__tab"
+      type="button"
+      (click)="selectTab('plans')"
+    >
+      Plans de soins
+    </button>
+    <button
+      [class.patient-detail__tab--active]="activeTab === 'vitals'"
+      class="patient-detail__tab"
+      type="button"
+      (click)="selectTab('vitals')"
+    >
+      Constantes
+    </button>
+    <button
+      [class.patient-detail__tab--active]="activeTab === 'alerts'"
+      class="patient-detail__tab"
+      type="button"
+      (click)="selectTab('alerts')"
+    >
+      Alertes
+    </button>
+  </nav>
+
+  <section *ngIf="activeTab === 'plans'" class="patient-detail__panel">
+    <ct-card
+      *ngFor="let plan of plans"
+      [title]="plan.name"
+      [subtitle]="'Démarré le ' + (plan.startDate | date : 'd MMM y')"
+    >
+      <p>{{ plan.description }}</p>
+      <ul class="patient-detail__steps">
+        <li *ngFor="let step of plan.steps">
+          <div>
+            <strong>{{ step.title }}</strong>
+            <p>{{ step.description }}</p>
+          </div>
+          <div class="patient-detail__step-meta">
+            <span>{{ step.dueDate | date: 'd MMM' }}</span>
+            <ct-status-chip [status]="step.status | statusLabel" tone="info"></ct-status-chip>
+          </div>
+        </li>
+      </ul>
+      <button class="patient-detail__action" ctAccessibleLabel="Ajouter une étape">Ajouter une étape</button>
+    </ct-card>
+  </section>
+
+  <section *ngIf="activeTab === 'vitals'" class="patient-detail__panel">
+    <ct-card title="Historique des constantes" subtitle="Synchronisé il y a 3 minutes">
+      <ul class="patient-detail__vitals">
+        <li *ngFor="let vital of vitals">
+          <div>
+            <strong>{{ vital.type | titlecase }}</strong>
+            <span>{{ vital.recordedAt | date: 'short' }}</span>
+          </div>
+          <div>
+            <span class="patient-detail__vital-value">{{ vital.value }}</span>
+            <small>{{ vital.unit }}</small>
+          </div>
+          <ct-status-chip [status]="vital.status | statusLabel" tone="warning"></ct-status-chip>
+        </li>
+      </ul>
+      <button class="patient-detail__action" ctAccessibleLabel="Ajouter une mesure">Ajouter une mesure</button>
+    </ct-card>
+  </section>
+
+  <section *ngIf="activeTab === 'alerts'" class="patient-detail__panel">
+    <ct-card title="Alertes patient" subtitle="Dernières 48 heures">
+      <ul class="patient-detail__alerts">
+        <li *ngFor="let alert of alerts">
+          <div>
+            <strong>{{ alert.message }}</strong>
+            <span>{{ alert.createdAt | date: 'short' }}</span>
+          </div>
+          <ct-status-chip [status]="alert.status | statusLabel" tone="success"></ct-status-chip>
+        </li>
+      </ul>
+      <button class="patient-detail__action" ctAccessibleLabel="Créer une alerte">Créer une alerte</button>
+    </ct-card>
+  </section>
+</section>

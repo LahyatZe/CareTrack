@@ -1,3 +1,4 @@
 .app-shell {
-  padding: 2rem;
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(180deg, rgba(241, 245, 249, 0.9), rgba(248, 250, 252, 0.6));
 }

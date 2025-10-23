@@ -1,0 +1,123 @@
+.patient-detail {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+}
+
+.patient-detail__header {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.patient-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.patient-detail__header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: #0f172a;
+}
+
+.patient-detail__header p {
+  margin: 0.25rem 0 0;
+  color: #475569;
+}
+
+.patient-detail__tag {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.patient-detail__tabs {
+  display: inline-flex;
+  gap: 0.75rem;
+  background: #f8fafc;
+  padding: 0.5rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.patient-detail__tab {
+  border: none;
+  background: transparent;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+}
+
+.patient-detail__tab--active {
+  background: #1d4ed8;
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(29, 78, 216, 0.25);
+}
+
+.patient-detail__panel {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.patient-detail__steps,
+.patient-detail__vitals,
+.patient-detail__alerts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.patient-detail__steps li,
+.patient-detail__vitals li,
+.patient-detail__alerts li {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  align-items: center;
+  gap: 1rem;
+}
+
+.patient-detail__step-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.patient-detail__vital-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.patient-detail__action {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  justify-self: start;
+}
+
+@media (max-width: 768px) {
+  .patient-detail__tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

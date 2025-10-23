@@ -1,0 +1,29 @@
+<table class="table" role="grid">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns" [style.width]="column.width" [class]="'align-' + (column.align ?? 'start')">
+        {{ column.header }}
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngIf="data.length; else empty">
+    <tr *ngFor="let row of data; trackBy: trackBy">
+      <td
+        *ngFor="let column of columns"
+        [class]="'align-' + (column.align ?? 'start')"
+        [attr.data-column]="column.header"
+      >
+        <ng-container *ngIf="!column.template; else templateCell">
+          {{ getCellValue(row, column) }}
+        </ng-container>
+        <ng-template #templateCell>
+          <ng-container *ngTemplateOutlet="column.template; context: { $implicit: row }"></ng-container>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #empty>
+  <div class="table__empty">{{ emptyState }}</div>
+</ng-template>

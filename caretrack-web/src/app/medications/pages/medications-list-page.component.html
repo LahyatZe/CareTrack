@@ -1,8 +1,43 @@
-<section class="medications ct-surface">
-  <h2>Médications</h2>
-  <ul>
-    <li *ngFor="let medication of medications$ | async">
-      {{ medication.name }} — {{ medication.dosage }} ({{ medication.frequency }})
-    </li>
-  </ul>
+<section class="medications">
+  <header class="medications__header">
+    <div>
+      <h1>Suivi des prises</h1>
+      <p>Confirmez les administrations, gérez les retards et consultez l'historique des notifications.</p>
+    </div>
+    <div class="medications__stats">
+      <ct-card title="Prises en attente" alignHeader="center">
+        <span class="medications__stat">{{ pendingCount() }}</span>
+      </ct-card>
+      <ct-card title="Confirmées aujourd'hui" alignHeader="center">
+        <span class="medications__stat">{{ takenToday() }}</span>
+      </ct-card>
+    </div>
+  </header>
+
+  <ct-card title="Agenda des traitements" subtitle="Mise à jour en temps réel">
+    <ul class="medications__list">
+      <li *ngFor="let medication of medications()" [class.medications__item--taken]="medication.status === 'TAKEN'">
+        <div class="medications__info">
+          <h3>{{ medication.patient }}</h3>
+          <p>{{ medication.medication }} — {{ medication.dose }}</p>
+        </div>
+        <div class="medications__meta">
+          <span>{{ medication.scheduledAt }}</span>
+          <ct-status-chip
+            [status]="medication.status | statusLabel"
+            [tone]="medication.status === 'MISSED' ? 'danger' : medication.status === 'TAKEN' ? 'success' : 'warning'"
+          ></ct-status-chip>
+          <small *ngIf="medication.lastConfirmedAt">Confirmé à {{ medication.lastConfirmedAt }}</small>
+        </div>
+        <button
+          class="medications__confirm"
+          type="button"
+          *ngIf="medication.status !== 'TAKEN'"
+          (click)="confirmIntake(medication.id)"
+        >
+          Confirmer
+        </button>
+      </li>
+    </ul>
+  </ct-card>
 </section>

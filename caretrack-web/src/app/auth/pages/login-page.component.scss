@@ -1,39 +1,114 @@
 .login {
-  max-width: 28rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 3rem;
   margin: 4rem auto;
-  padding: 2rem;
-  background: var(--ct-surface);
+  align-items: center;
+  max-width: 72rem;
+  padding: 0 1.5rem;
+}
+
+.login__hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.login__lead {
+  margin: 0 0 1.5rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.login__benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.login__benefits span {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.login__card {
+  width: 100%;
+}
+
+.login__form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.login__form label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.login__form input {
+  padding: 0.85rem 1rem;
   border-radius: 0.75rem;
-  box-shadow: 0 1.5rem 3rem rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  background: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
 
-  h1 {
-    margin-bottom: 2rem;
+.login__form input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+.login__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.login__actions button {
+  padding: 0.85rem 1.25rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login__actions button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.login__actions button:not([disabled]):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
+}
+
+.login__link {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .login {
+    margin-top: 2rem;
   }
 
-  form {
-    display: grid;
-    gap: 1.5rem;
+  .login__actions {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  label {
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  input {
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #cbd5f5;
-    font-size: 1rem;
-  }
-
-  button {
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    background: var(--ct-primary);
-    color: white;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+  .login__link {
+    text-align: center;
   }
 }
