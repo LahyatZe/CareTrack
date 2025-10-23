@@ -1,6 +1,5 @@
 package com.caretrack.api.medication;
 
-import com.caretrack.core.medication.domain.MedicationIntakeStatus;
 import com.caretrack.core.medication.dto.MedicationIntakeDto;
 import com.caretrack.core.medication.service.MedicationIntakeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,13 +45,12 @@ public class MedicationIntakeController {
 
     @PatchMapping("/{id}/status")
     @Operation(summary = "Update the status of a medication intake")
-    public ResponseEntity<MedicationIntakeDto> updateStatus(@PathVariable Long id,
-                                                            @RequestBody UpdateStatusRequest request) {
+    public ResponseEntity<MedicationIntakeDto> updateStatus(
+            @PathVariable Long id, @RequestBody UpdateStatusRequest request) {
         try {
-            MedicationIntakeStatus status = MedicationIntakeStatus.valueOf(request.status().toUpperCase());
-            return ResponseEntity.ok(medicationIntakeService.updateStatus(id, status));
+            return ResponseEntity.ok(medicationIntakeService.updateStatus(id, request.status()));
         } catch (IllegalArgumentException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown status: " + request.status());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
         }
     }
 

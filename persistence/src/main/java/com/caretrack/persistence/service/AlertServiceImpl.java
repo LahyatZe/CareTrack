@@ -5,6 +5,7 @@ import com.caretrack.core.alert.domain.AlertStatus;
 import com.caretrack.core.alert.dto.AlertDto;
 import com.caretrack.core.alert.mapper.AlertMapper;
 import com.caretrack.core.alert.service.AlertService;
+import com.caretrack.core.common.mapper.EnumMapper;
 import com.caretrack.core.patient.domain.Patient;
 import com.caretrack.persistence.repository.AlertRepository;
 import com.caretrack.persistence.repository.PatientRepository;
@@ -23,6 +24,7 @@ public class AlertServiceImpl implements AlertService {
     private final AlertRepository alertRepository;
     private final PatientRepository patientRepository;
     private final AlertMapper alertMapper;
+    private final EnumMapper enumMapper;
 
     @Override
     @Transactional
@@ -41,12 +43,13 @@ public class AlertServiceImpl implements AlertService {
     }
 
     @Override
-    public List<AlertDto> findByFilters(AlertStatus status, Long patientId) {
+    public List<AlertDto> findByFilters(String status, Long patientId) {
         List<Alert> alerts;
-        if (status != null && patientId != null) {
-            alerts = alertRepository.findByStatusAndPatientId(status, patientId);
-        } else if (status != null) {
-            alerts = alertRepository.findByStatus(status);
+        AlertStatus parsedStatus = enumMapper.toAlertStatus(status);
+        if (parsedStatus != null && patientId != null) {
+            alerts = alertRepository.findByStatusAndPatientId(parsedStatus, patientId);
+        } else if (parsedStatus != null) {
+            alerts = alertRepository.findByStatus(parsedStatus);
         } else if (patientId != null) {
             alerts = alertRepository.findByPatientId(patientId);
         } else {
