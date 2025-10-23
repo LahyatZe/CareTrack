@@ -1,14 +1,40 @@
 <section class="login">
-  <h1>Connexion</h1>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <label>
-      Adresse e-mail
-      <input type="email" formControlName="email" />
-    </label>
-    <label>
-      Mot de passe
-      <input type="password" formControlName="password" />
-    </label>
-    <button type="submit" [disabled]="form.invalid">Se connecter</button>
-  </form>
+  <div class="login__hero">
+    <h1>Bienvenue sur CareTrack</h1>
+    <p class="login__lead">
+      Suivez les plans de soins, les traitements et les alertes de vos patients avec une plateforme unifiée et
+      sécurisée.
+    </p>
+    <ul class="login__benefits">
+      <li>
+        <span aria-hidden="true">✓</span>
+        Consolidation temps-réel des constantes
+      </li>
+      <li>
+        <span aria-hidden="true">✓</span>
+        Gestion proactive des plans de soins et des alertes
+      </li>
+      <li>
+        <span aria-hidden="true">✓</span>
+        Collaboration entre équipes clinique et terrain
+      </li>
+    </ul>
+  </div>
+
+  <ct-card class="login__card" title="Connexion" subtitle="Accédez à votre espace professionnel">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="login__form">
+      <label>
+        Adresse e-mail
+        <input type="email" formControlName="email" placeholder="prenom.nom@hopital.fr" required />
+      </label>
+      <label>
+        Mot de passe
+        <input type="password" formControlName="password" placeholder="••••••••" required />
+      </label>
+      <div class="login__actions">
+        <button type="submit" [disabled]="form.invalid">Se connecter</button>
+        <a class="login__link" routerLink="../forgot-password">Mot de passe oublié ?</a>
+      </div>
+    </form>
+  </ct-card>
 </section>

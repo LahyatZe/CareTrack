@@ -1,19 +1,80 @@
-<section class="vitals ct-surface">
-  <h2>Signes vitaux</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Valeur</th>
-        <th>Enregistré le</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let vital of vitals$ | async">
-        <td>{{ vital.type }}</td>
-        <td>{{ vital.value }}</td>
-        <td>{{ vital.recordedAt | date: 'short' }}</td>
-      </tr>
-    </tbody>
-  </table>
+<section class="vitals">
+  <header class="vitals__header">
+    <div>
+      <h1>Constantes vitales</h1>
+      <p>Visualisez les tendances et enregistrez rapidement de nouvelles mesures.</p>
+    </div>
+    <button class="vitals__refresh" ctAccessibleLabel="Rafraîchir les constantes">Synchroniser</button>
+  </header>
+
+  <div class="vitals__grid">
+    <ct-card *ngFor="let trend of trends" [title]="trend.label" [subtitle]="'Unité: ' + trend.unit">
+      <figure class="vitals__chart">
+        <svg [attr.viewBox]="'0 0 280 140'" role="img" focusable="false">
+          <polyline
+            [attr.points]="chartPath(trend)"
+            [attr.stroke]="trend.color"
+            stroke-width="4"
+            fill="none"
+            stroke-linecap="round"
+          ></polyline>
+        </svg>
+        <figcaption>
+          <span *ngFor="let time of trend.timestamps">{{ time }}</span>
+        </figcaption>
+      </figure>
+    </ct-card>
+  </div>
+
+  <div class="vitals__content">
+    <ct-card title="Dernières mesures" subtitle="Flux temps réel">
+      <ul class="vitals__list">
+        <li *ngFor="let vital of vitals">
+          <div>
+            <strong>{{ vital.patientName }}</strong>
+            <p>{{ vital.type | titlecase }}</p>
+          </div>
+          <div class="vitals__value">
+            <span>{{ vital.value }}</span>
+            <small>{{ vital.unit }}</small>
+          </div>
+          <div class="vitals__meta">
+            <span>{{ vital.recordedAt | date: 'shortTime' }}</span>
+            <ct-status-chip [status]="vital.status | statusLabel" tone="info"></ct-status-chip>
+          </div>
+        </li>
+      </ul>
+    </ct-card>
+
+    <ct-card title="Ajouter une mesure" subtitle="Formulaire rapide">
+      <form [formGroup]="vitalForm" (ngSubmit)="submitVital()" class="vitals__form">
+        <label>
+          Patient
+          <input type="text" formControlName="patientName" placeholder="Nom du patient" />
+        </label>
+        <label>
+          Type
+          <select formControlName="type">
+            <option value="HEART_RATE">Fréquence cardiaque</option>
+            <option value="SPO2">SpO₂</option>
+            <option value="RESPIRATORY_RATE">Fréquence respiratoire</option>
+            <option value="TEMPERATURE">Température</option>
+          </select>
+        </label>
+        <label>
+          Valeur
+          <input type="number" formControlName="value" step="0.1" />
+        </label>
+        <label>
+          Unité
+          <input type="text" formControlName="unit" placeholder="ex : bpm, %" />
+        </label>
+        <label>
+          Date & heure
+          <input type="datetime-local" formControlName="recordedAt" />
+        </label>
+        <button type="submit" [disabled]="vitalForm.invalid">Enregistrer</button>
+      </form>
+    </ct-card>
+  </div>
 </section>

@@ -1,10 +1,96 @@
-.medications ul {
+.medications {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+}
+
+.medications__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+}
+
+.medications__header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: #0f172a;
+}
+
+.medications__header p {
+  margin: 0.5rem 0 0;
+  color: #475569;
+}
+
+.medications__stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.medications__stat {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.medications__list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: 1.25rem;
 }
 
-.medications li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e2e8f0;
+.medications__list li {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #f8fafc;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+}
+
+.medications__item--taken {
+  background: rgba(134, 239, 172, 0.2);
+}
+
+.medications__info h3 {
+  margin: 0 0 0.25rem;
+}
+
+.medications__info p {
+  margin: 0;
+  color: #475569;
+}
+
+.medications__meta {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: end;
+  color: #334155;
+  font-weight: 600;
+}
+
+.medications__confirm {
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .medications__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .medications__stats {
+    width: 100%;
+    flex-direction: column;
+  }
 }

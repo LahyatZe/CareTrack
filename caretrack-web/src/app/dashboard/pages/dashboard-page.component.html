@@ -1,4 +1,57 @@
-<section class="dashboard ct-surface">
-  <h2>Vue d'ensemble</h2>
-  <p>Bienvenue sur le tableau de bord CareTrack.</p>
+<section class="dashboard">
+  <header class="dashboard__header">
+    <div>
+      <h1>Vue synthèse</h1>
+      <p class="dashboard__subtitle">Surveillez l'état clinique et les tâches critiques des prochaines heures.</p>
+    </div>
+    <button ctAccessibleLabel="Créer une note" class="dashboard__primary">Nouvelle note clinique</button>
+  </header>
+
+  <div class="dashboard__grid">
+    <ct-card title="Alertes critiques" subtitle="Dernières 2 heures">
+      <ul class="dashboard__alerts">
+        <li *ngFor="let alert of criticalAlerts; trackBy: alertTrackBy" class="dashboard__alert">
+          <div>
+            <h3>{{ alert.patientName }}</h3>
+            <p>{{ alert.message }}</p>
+          </div>
+          <ct-status-chip [status]="alert.status | statusLabel" tone="danger"></ct-status-chip>
+        </li>
+      </ul>
+      <a class="dashboard__link" routerLink="/alerts">Consulter toutes les alertes</a>
+    </ct-card>
+
+    <ct-card title="Prochains traitements" subtitle="30 prochaines minutes">
+      <ul class="dashboard__treatments">
+        <li *ngFor="let treatment of upcomingTreatments; trackBy: treatmentTrackBy">
+          <div class="dashboard__treatment-info">
+            <h3>{{ treatment.patient }}</h3>
+            <p>{{ treatment.treatment }}</p>
+          </div>
+          <div class="dashboard__treatment-meta">
+            <span>{{ treatment.scheduledAt }}</span>
+            <ct-status-chip [status]="treatment.status | statusLabel" tone="info"></ct-status-chip>
+          </div>
+        </li>
+      </ul>
+      <a class="dashboard__link" routerLink="/plans">Voir le planning soins</a>
+    </ct-card>
+
+    <ct-card title="Constantes récentes" subtitle="Patients surveillés">
+      <ul class="dashboard__vitals">
+        <li *ngFor="let vital of recentVitals; trackBy: vitalTrackBy">
+          <div>
+            <h3>{{ vital.patientName }}</h3>
+            <p>{{ vital.type | titlecase }} — {{ vital.recordedAt | date: 'shortTime' }}</p>
+          </div>
+          <div class="dashboard__vital-value">
+            <strong>{{ vital.value }}</strong>
+            <span>{{ vital.unit }}</span>
+            <ct-status-chip [status]="vital.status | statusLabel" [tone]="vital.status === 'ELEVATED' ? 'warning' : 'success'"></ct-status-chip>
+          </div>
+        </li>
+      </ul>
+      <a class="dashboard__link" routerLink="/vitals">Analyser les constantes</a>
+    </ct-card>
+  </div>
 </section>

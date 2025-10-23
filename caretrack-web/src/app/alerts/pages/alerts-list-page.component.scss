@@ -1,15 +1,115 @@
-.alerts ul {
+.alerts {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+}
+
+.alerts__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.alerts__header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: #0f172a;
+}
+
+.alerts__header p {
+  margin: 0.5rem 0 0;
+  color: #475569;
+}
+
+.alerts__filters {
+  display: flex;
+  gap: 1rem;
+}
+
+.alerts__filters label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.alerts__filters select {
+  padding: 0.6rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: #f8fafc;
+}
+
+.alerts__list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: 1.25rem;
 }
 
-.alerts li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e2e8f0;
+.alerts__list li {
+  display: grid;
+  grid-template-columns: minmax(14rem, 2fr) auto auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
 }
 
 .alerts__item--critical {
-  color: var(--ct-warn);
+  background: rgba(248, 113, 113, 0.1);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.alerts__meta {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: end;
+  color: #334155;
   font-weight: 600;
+}
+
+.alerts__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.alerts__actions button {
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+  color: #fff;
+}
+
+.alerts__actions button:last-child {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+@media (max-width: 900px) {
+  .alerts__list li {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .alerts__meta {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 768px) {
+  .alerts__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alerts__filters {
+    width: 100%;
+    flex-direction: column;
+  }
 }

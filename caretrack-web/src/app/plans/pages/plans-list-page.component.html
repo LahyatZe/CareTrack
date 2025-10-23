@@ -1,9 +1,100 @@
-<section class="plans ct-surface">
-  <h2>Plans de soins</h2>
-  <ul>
-    <li *ngFor="let plan of plans$ | async">
-      <h3>{{ plan.title }}</h3>
-      <p>{{ plan.description }}</p>
-    </li>
-  </ul>
+<section class="plans">
+  <header class="plans__header">
+    <div>
+      <h1>Plans de soins</h1>
+      <p>Coordonnez les parcours thérapeutiques et attribuez les étapes aux patients.</p>
+    </div>
+    <button class="plans__primary" (click)="createPlan()" ctAccessibleLabel="Créer un plan">Créer un plan</button>
+  </header>
+
+  <div class="plans__layout">
+    <aside class="plans__sidebar">
+      <ct-card title="Plans actifs">
+        <ul>
+          <li
+            *ngFor="let plan of plans()"
+            [class.plans__plan--active]="plan.id === selectedPlanId()"
+            (click)="selectPlan(plan.id)"
+            ctAccessibleLabel="Sélectionner le plan"
+          >
+            <h3>{{ plan.name }}</h3>
+            <p>{{ plan.description }}</p>
+            <ct-status-chip [status]="plan.status | statusLabel" tone="info"></ct-status-chip>
+          </li>
+        </ul>
+      </ct-card>
+
+      <ct-card title="Calendrier des étapes" subtitle="Semaine en cours">
+        <ul class="plans__calendar">
+          <li *ngFor="let event of calendar()">
+            <span>{{ event.date | date: 'EEE d MMM' }}</span>
+            <div>
+              <strong>{{ event.label }}</strong>
+              <small>{{ event.planName }}</small>
+            </div>
+          </li>
+        </ul>
+      </ct-card>
+    </aside>
+
+    <section class="plans__content" *ngIf="selectedPlan() as plan">
+      <ct-card [title]="plan.name" [subtitle]="'Patient • ' + (patients.find((p) => p.id === plan.patientId)?.label ?? '')">
+        <p>{{ plan.description }}</p>
+        <h3>Étapes</h3>
+        <ul class="plans__steps">
+          <li *ngFor="let step of plan.steps">
+            <div>
+              <strong>{{ step.title }}</strong>
+              <p>{{ step.description }}</p>
+            </div>
+            <div class="plans__step-meta">
+              <span>{{ step.dueDate | date: 'd MMM' }}</span>
+              <ct-status-chip [status]="step.status | statusLabel" tone="warning"></ct-status-chip>
+            </div>
+          </li>
+        </ul>
+      </ct-card>
+
+      <ct-card title="Ajouter une étape" subtitle="Plan : {{ plan.name }}">
+        <form [formGroup]="stepForm" (ngSubmit)="addStep()" class="plans__form">
+          <label>
+            Titre
+            <input type="text" formControlName="title" placeholder="Ex : Séance d'éducation thérapeutique" />
+          </label>
+          <label>
+            Description
+            <textarea formControlName="description" rows="3"></textarea>
+          </label>
+          <label>
+            Échéance
+            <input type="date" formControlName="dueDate" />
+          </label>
+          <button type="submit" [disabled]="stepForm.invalid">Ajouter</button>
+        </form>
+      </ct-card>
+    </section>
+
+    <section class="plans__content plans__content--form">
+      <ct-card title="Créer un plan" subtitle="Assigner à un patient">
+        <form [formGroup]="planForm" (ngSubmit)="createPlan()" class="plans__form">
+          <label>
+            Nom du plan
+            <input type="text" formControlName="name" placeholder="Programme de rééducation" />
+          </label>
+          <label>
+            Description
+            <textarea formControlName="description" rows="3"></textarea>
+          </label>
+          <label>
+            Patient
+            <select formControlName="patientId">
+              <option value="" disabled>Sélectionner un patient</option>
+              <option *ngFor="let patient of patients" [value]="patient.id">{{ patient.label }}</option>
+            </select>
+          </label>
+          <button type="submit" [disabled]="planForm.invalid">Créer</button>
+        </form>
+      </ct-card>
+    </section>
+  </div>
 </section>

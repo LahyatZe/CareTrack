@@ -1,8 +1,149 @@
 .plans {
-  ul {
-    display: grid;
-    gap: 1.5rem;
-    padding: 0;
-    list-style: none;
+  display: grid;
+  gap: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+}
+
+.plans__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.plans__header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: #0f172a;
+}
+
+.plans__header p {
+  margin: 0.5rem 0 0;
+  color: #475569;
+}
+
+.plans__primary {
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(22, 163, 74, 0.25);
+}
+
+.plans__layout {
+  display: grid;
+  grid-template-columns: 18rem 1fr 20rem;
+  gap: 2rem;
+  align-items: start;
+}
+
+.plans__sidebar ul,
+.plans__steps,
+.plans__calendar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.plans__sidebar li {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plans__sidebar li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.plans__plan--active {
+  border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.plans__calendar li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  color: #1f2937;
+}
+
+.plans__steps li {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  align-items: center;
+}
+
+.plans__step-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.plans__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.plans__form label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.plans__form input,
+.plans__form textarea,
+.plans__form select {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: #f8fafc;
+}
+
+.plans__form button {
+  justify-self: start;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.plans__form button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.plans__content {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.plans__content--form {
+  align-self: stretch;
+}
+
+@media (max-width: 1100px) {
+  .plans__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .plans__sidebar {
+    order: 2;
   }
 }

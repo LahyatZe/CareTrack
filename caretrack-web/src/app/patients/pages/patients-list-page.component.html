@@ -1,8 +1,17 @@
-<section class="patients ct-surface">
-  <h2>Patients</h2>
-  <ul>
-    <li *ngFor="let patient of patients$ | async">
-      {{ patient.firstName }} {{ patient.lastName }} — {{ patient.dateOfBirth | date }}
-    </li>
-  </ul>
+<section class="patients">
+  <header class="patients__header">
+    <div>
+      <h1>Patients suivis</h1>
+      <p>Visualisez l'état clinique des patients actifs et accédez à leurs fiches détaillées.</p>
+    </div>
+    <button class="patients__create" ctAccessibleLabel="Créer un patient">Ajouter un patient</button>
+  </header>
+
+  <ct-card title="Liste des patients" subtitle="Mise à jour il y a 12 minutes">
+    <ct-data-table [columns]="columns" [data]="patients" [trackBy]="trackByPatient" emptyState="Aucun patient actif">
+      <ng-template #actionsColumn let-patient>
+        <a class="patients__link" [routerLink]="['/patients', patient.id]">Ouvrir</a>
+      </ng-template>
+    </ct-data-table>
+  </ct-card>
 </section>

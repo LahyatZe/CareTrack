@@ -1,0 +1,14 @@
+<article class="card" [class.card--center-header]="alignHeader === 'center'" [class.card--end-header]="alignHeader === 'end'">
+  <header class="card__header" *ngIf="title || subtitle">
+    <div class="card__heading">
+      <h3 class="card__title" *ngIf="title">{{ title }}</h3>
+      <p class="card__subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+    </div>
+    <div class="card__actions">
+      <ng-content select="[card-actions]"></ng-content>
+    </div>
+  </header>
+  <section class="card__content">
+    <ng-content></ng-content>
+  </section>
+</article>

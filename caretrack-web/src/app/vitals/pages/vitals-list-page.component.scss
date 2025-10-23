@@ -1,11 +1,145 @@
-.vitals table {
-  width: 100%;
-  border-collapse: collapse;
+.vitals {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem);
 }
 
-.vitals th,
-.vitals td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+.vitals__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.vitals__header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  color: #0f172a;
+}
+
+.vitals__header p {
+  margin: 0.5rem 0 0;
+  color: #475569;
+}
+
+.vitals__refresh {
+  border: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vitals__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.vitals__chart {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.vitals__chart svg {
+  width: 100%;
+  height: auto;
+}
+
+.vitals__chart figcaption {
+  display: flex;
+  justify-content: space-between;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.vitals__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+}
+
+.vitals__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.vitals__list li {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.vitals__value {
+  display: grid;
+  justify-items: center;
+  color: #0f172a;
+}
+
+.vitals__value span {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.vitals__meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.vitals__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.vitals__form label {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.vitals__form input,
+.vitals__form select {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: #f8fafc;
+}
+
+.vitals__form button {
+  justify-self: start;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vitals__form button[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .vitals__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vitals__refresh {
+    width: 100%;
+  }
 }
