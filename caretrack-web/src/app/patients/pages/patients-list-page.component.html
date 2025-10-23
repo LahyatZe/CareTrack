@@ -1,0 +1,8 @@
+<section class="patients ct-surface">
+  <h2>Patients</h2>
+  <ul>
+    <li *ngFor="let patient of patients$ | async">
+      {{ patient.firstName }} {{ patient.lastName }} — {{ patient.dateOfBirth | date }}
+    </li>
+  </ul>
+</section>

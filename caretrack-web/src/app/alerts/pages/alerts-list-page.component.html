@@ -1,0 +1,8 @@
+<section class="alerts ct-surface">
+  <h2>Alertes</h2>
+  <ul>
+    <li *ngFor="let alert of alerts$ | async" [class.alerts__item--critical]="alert.severity === 'HIGH'">
+      <strong>{{ alert.type }}</strong> — {{ alert.message }}
+    </li>
+  </ul>
+</section>

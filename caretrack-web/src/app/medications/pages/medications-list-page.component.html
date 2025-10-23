@@ -1,0 +1,8 @@
+<section class="medications ct-surface">
+  <h2>Médications</h2>
+  <ul>
+    <li *ngFor="let medication of medications$ | async">
+      {{ medication.name }} — {{ medication.dosage }} ({{ medication.frequency }})
+    </li>
+  </ul>
+</section>
